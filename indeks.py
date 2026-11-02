@@ -71,8 +71,9 @@ def bangun_indeks(folder_dokumen="dokumen", ukuran_chunk=800, overlap=100, nama_
             continue
 
         # Upsert: aman dijalankan ulang (menimpa jika id sudah ada)
+        stem_bersih = pdf.stem.replace(" ", "_")
         koleksi.upsert(
-            ids=[f"{pdf.stem}-{i}" for i in range(len(chunks))],
+            ids=[f"{stem_bersih}-{i}" for i in range(len(chunks))],
             documents=chunks,
             metadatas=[{"sumber": pdf.name, "chunk": i} for i in range(len(chunks))],
         )
